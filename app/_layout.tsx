@@ -1,37 +1,74 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from "react"
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native"
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const { width: SCREEN_WIDTH } = Dimensions.get("window")
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+export default function App() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+    <View style={styles.container}>
+      <View style={styles.city}>
+        <Text style={styles.cityName}>Seoul</Text>
+      </View>
+      <ScrollView
+        pagingEnabled
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.weather}
+      >
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>Sunny</Text>
+        </View>
+      </ScrollView>
+    </View>
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "tomato",
+  },
+  city: {
+    flex: 1.2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cityName: {
+    fontSize: 68,
+    fontWeight: "500",
+  },
+  weather: {},
+  day: {
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+  },
+  temp: {
+    marginTop: 50,
+    fontSize: 178,
+  },
+  description: {
+    marginTop: -30,
+    fontSize: 60,
+  },
+})
