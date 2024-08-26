@@ -8,13 +8,14 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native"
+import { Fontisto } from "@expo/vector-icons"
 
 // 화면의 너비를 가져와 SCREEN_WIDTH에 저장
 const { width: SCREEN_WIDTH } = Dimensions.get("window")
 
 const API_KEY = "fb2d73629f45d06e33de2727757afe4f"
 
-const icons = {
+const icons: any = {
   Clouds: "cloudy",
   Clear: "day-sunny",
   Atmosphere: "cloudy-gusts",
@@ -91,16 +92,34 @@ export default function App() {
       >
         {/* 각각의 날씨 정보를 표시하는 뷰 (하드코딩된 예시) */}
         {days.length === 0 ? (
-          <View style={styles.day}>
-            <ActivityIndicator size="large" color="#fff" />
+          <View style={{ ...styles.day, alignItems: "center" }}>
+            <ActivityIndicator
+              color="white"
+              style={{ marginTop: 10 }}
+              size="large"
+            />
           </View>
         ) : (
           days.map((day: any, index: number) => (
             <View key={index} style={styles.day}>
-              <Text style={styles.temp}>
-                {/* 날씨 정보에서 온도를 가져와서 소수점을 버린 후, 섭씨로 변환하여 표시 */}
-                {Math.round(day.main.temp - 273.15)}°
-              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "100%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.temp}>
+                  {/* 날씨 정보에서 온도를 가져와서 소수점을 버린 후, 섭씨로 변환하여 표시 */}
+                  {Math.round(day.main.temp - 273.15)}°
+                </Text>
+                <Fontisto
+                  name={icons[day.weather[0].main]}
+                  size={68}
+                  color="white"
+                />
+              </View>
               <Text style={styles.description}>{day.weather[0].main}</Text>
               <Text style={styles.tinyText}>{day.weather[0].description}</Text>
             </View>
@@ -113,32 +132,41 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // 전체 화면을 차지하는 컨테이너
-    backgroundColor: "tomato", // 배경색
+    flex: 1,
+    backgroundColor: "tomato",
   },
   city: {
-    flex: 1.2, // 화면의 1.2배 크기만큼 높이를 차지
-    justifyContent: "center", // 세로 방향으로 가운데 정렬
-    alignItems: "center", // 가로 방향으로 가운데 정렬
+    flex: 1.2,
+    justifyContent: "center",
+    alignItems: "center",
   },
   cityName: {
-    fontSize: 56, // 글자 크기
-    fontWeight: "500", // 글자 두께
+    fontSize: 58,
+    fontWeight: "500",
+    color: "white",
   },
-  weather: {}, // 스크롤뷰의 스타일 (현재는 빈 객체)
+  weather: {},
   day: {
-    width: SCREEN_WIDTH, // 화면 너비만큼의 넓이를 가진 뷰
-    alignItems: "center", // 가로 방향으로 가운데 정렬
+    width: SCREEN_WIDTH,
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
   },
   temp: {
-    marginTop: 50, // 위쪽 여백
-    fontSize: 178, // 글자 크기 (온도 표시)
+    marginTop: 50,
+    fontWeight: "600",
+    fontSize: 100,
+    color: "white",
   },
   description: {
-    marginTop: -30, // 위쪽 여백 (음수로 설정하여 temp와 겹치게 배치)
-    fontSize: 60, // 글자 크기 (날씨 설명)
+    marginTop: -10,
+    fontSize: 30,
+    color: "white",
+    fontWeight: "500",
   },
   tinyText: {
-    fontSize: 20,
+    marginTop: -5,
+    fontSize: 25,
+    color: "white",
+    fontWeight: "500",
   },
 })
