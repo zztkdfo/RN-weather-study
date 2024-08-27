@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# React Native 날씨 앱
+이 프로젝트는 사용자의 현재 위치를 기반으로 날씨 정보를 제공하는 React Native 기반의 모바일 애플리케이션입니다. Expo를 사용하여 개발되었으며, OpenWeatherMap API를 통해 실시간 날씨 데이터를 가져옵니다.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 앱 개요
+이 앱은 사용자가 위치 권한을 허용하면 현재 위치의 날씨 정보를 자동으로 가져와 화면에 표시합니다. 또한, 5일 간의 날씨 예보를 제공하며, 각 날의 기온, 날씨 상태, 날씨 아이콘 등을 표시합니다. 사용자는 가로로 스크롤하여 각 일자의 날씨 정보를 확인할 수 있습니다.
+<br />
 
-## Get started
+## 주요 기능
+- **위치 기반 날씨 정보 제공:** 사용자의 현재 위치를 자동으로 감지하여 해당 지역의 날씨 데이터를 표시합니다.
+- **5일간의 날씨 예보:** 각 날짜의 기온과 날씨 상태를 시각적으로 확인할 수 있습니다.
+- **아이콘을 통한 날씨 시각화:** 날씨 상태에 따라 다양한 아이콘(예: 맑음, 비, 눈)을 표시하여 사용자가 쉽게 날씨를 파악할 수 있습니다.
+- **심플하고 직관적인 UI:** 사용자의 경험을 고려한 직관적인 인터페이스로, 가로 스크롤을 통해 날씨 정보를 쉽게 탐색할 수 있습니다.
+- **날씨 상태에 따른 동적 UI 업데이트:** 실시간 날씨 상태에 따라 앱의 UI가 동적으로 업데이트되어 사용자가 현재 날씨를 직관적으로 파악할 수 있습니다. 예를 들어, 비가 오는 경우 배경 색상이나 아이콘이 변경됩니다.
+<br />
 
-1. Install dependencies
+## 사용된 기술
+- **React Native:** 모바일 애플리케이션 개발을 위한 JavaScript 프레임워크.
+- **Expo:** React Native 애플리케이션의 개발, 빌드, 배포를 단순화하는 도구.
+- **OpenWeatherMap API:** 날씨 데이터를 제공하는 API 서비스.
+- **TypeScript:** 코드의 안정성과 유지보수성을 높이기 위해 일부 타입스크립트 문법을 적용.
+<br />
 
-   ```bash
-   npm install
-   ```
+## 주요 컴포넌트 및 라이브러리
+### 1. **React 및 React Native**
+   - **React:** 사용자 인터페이스를 구축하기 위한 JavaScript 라이브러리로, 이 프로젝트의 기본 구조를 형성합니다.
+   - **React Native:** iOS 및 Android 플랫폼에서 네이티브 모바일 애플리케이션을 개발하기 위한 프레임워크로, React를 기반으로 합니다.
 
-2. Start the app
+### 2. **Expo**
+   - Expo는 React Native 개발을 쉽게 할 수 있도록 도와주는 툴킷입니다. 이 프로젝트에서는 위치 정보를 가져오기 위해 Expo의 `Location` API를 사용했습니다.
+   - **`Location` API:** 사용자의 위치 권한을 요청하고, 현재 위치의 위도와 경도를 가져오는 데 사용됩니다. 이 위치 정보를 바탕으로 날씨 데이터를 불러옵니다.
 
-   ```bash
-    npx expo start
-   ```
+### 3. **OpenWeatherMap API**
+   - OpenWeatherMap API는 전 세계의 날씨 정보를 제공하는 API입니다. 이 프로젝트에서는 사용자의 현재 위치(위도 및 경도)를 기반으로 날씨 예보 데이터를 가져오기 위해 사용되었습니다.
+   - **API 호출:** `fetch` 메서드를 사용하여 OpenWeatherMap API에서 날씨 데이터를 가져오며, 5일간의 날씨 예보를 JSON 형식으로 받아옵니다.
 
-In the output, you'll find options to open the app in a
+### 4. **`useState` 및 `useEffect`**
+   - **`useState`:** React의 훅으로, 컴포넌트의 상태를 관리합니다. 이 프로젝트에서는 도시 이름, 날씨 데이터, 위치 권한 등을 상태로 관리합니다.
+   - **`useEffect`:** 컴포넌트가 마운트되거나 상태가 업데이트될 때 특정 작업을 수행하도록 하는 훅입니다. 이 프로젝트에서는 컴포넌트가 처음 렌더링될 때 위치 정보를 요청하고 날씨 데이터를 가져오는 작업을 수행합니다.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 5. **Fontisto 아이콘 라이브러리**
+   - **Fontisto:** 이 라이브러리는 날씨 상태에 따라 적절한 아이콘을 표시하기 위해 사용되었습니다. 예를 들어, `Clear` 상태일 때는 `day-sunny` 아이콘을 표시합니다.
+   - 아이콘은 날씨 상태 (`Clouds`, `Clear`, `Rain` 등)에 따라 동적으로 선택됩니다.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 6. **ActivityIndicator**
+   - React Native에서 제공하는 기본 컴포넌트로, 비동기 작업(예: API 호출)이 완료될 때까지 로딩 스피너를 화면에 표시합니다. 날씨 데이터를 가져오는 동안 사용자가 데이터를 기다리는 동안 이 로딩 인디케이터가 표시됩니다.
 
-## Get a fresh project
+### 7. **ScrollView**
+   - **ScrollView:** 가로 스크롤이 가능한 컨테이너로, 날씨 예보를 하루 단위로 보여주기 위해 사용되었습니다. `pagingEnabled` 속성을 통해 스크롤이 페이지 단위로 이루어지도록 설정했습니다.
 
-When you're ready, run:
+### 8. **StyleSheet**
+   - React Native에서 스타일링을 위해 사용하는 객체로, 이 프로젝트에서 각 컴포넌트의 레이아웃과 디자인을 정의하는 데 사용되었습니다. 배경색, 텍스트 크기, 여백 등의 스타일링이 여기에서 관리됩니다.
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
